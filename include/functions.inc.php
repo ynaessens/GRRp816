@@ -2,7 +2,7 @@
 /**
  * include/functions.inc.php
  * fichier Bibliothèque de fonctions de GRR
- * Dernière modification : $Date: 2022-05-23 16:25$
+ * Dernière modification : $Date: 2022-06-10 11:01$
  * @author    JeromeB & Laurent Delineau & Marc-Henri PAMISEUX & Yan Naessens
  * @copyright Copyright 2003-2022 Team DEVOME - JeromeB
  * @link      http://www.gnu.org/licenses/licenses.html
@@ -1833,7 +1833,7 @@ function get_default_site()
 {
     $user = getUserName();
     if ($user != ''){
-        $id_site = grr_sql_query1("SELECT default_site FROM ".TABLE_PREFIX."_utilisateurs WHERE login =".$user);
+        $id_site = grr_sql_query1("SELECT default_site FROM ".TABLE_PREFIX."_utilisateurs WHERE login ='".$user."'");
         if ($id_site > 0){return $id_site;}
     }
     // ici l'utilisateur n'est pas reconnu ou il n'a pas de site par défaut : on passe aux informations de la table settings
@@ -6347,9 +6347,9 @@ function grrGetOverloadDescArray($ofl,$od)
     return $overload_array;
 }
 // récupère les variables passées par GET ou POST ou bien par COOKIE, et leur affecte le type indiqué (int ou string)
-// rend NULL si la valeur recherchée n'est pas référencée
-function getFormVar($nom,$type=''){
-    $valeur = isset($_GET[$nom])? $_GET[$nom] : (isset($_POST[$nom])? $_POST[$nom] : (isset($_COOKIE['nom'])? $_COOKIE['nom'] : NULL));
+// rend $default si la valeur recherchée n'est pas référencée
+function getFormVar($nom,$type='',$default=NULL){
+    $valeur = isset($_GET[$nom])? $_GET[$nom] : (isset($_POST[$nom])? $_POST[$nom] : (isset($_COOKIE['nom'])? $_COOKIE['nom'] : $default));
     if ((isset($valeur)) && ($type !=''))
         settype($valeur,$type);
     return $valeur;

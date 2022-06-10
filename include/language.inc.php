@@ -3,9 +3,9 @@
  * language.inc.php
  * Configuration de la langue
  * Ce script fait partie de l'application GRR
- * Dernière modification : $Date: 2021-08-08 17:52$
+ * Dernière modification : $Date: 2022-06-10 10:50$
  * @author    JeromeB & Laurent Delineau & Yan Naessens
- * @copyright Copyright 2003-2021 Team DEVOME - JeromeB
+ * @copyright Copyright 2003-2022 Team DEVOME - JeromeB
  * @link      http://www.gnu.org/licenses/licenses.html
  *
  * This file is part of GRR.
@@ -41,7 +41,8 @@ else
 	// sinon, on fixe la valeur à "fr"
 	$locale = 'fr';
 }
-// $pass_leng est utilisé dans les fichiers langue, d'où la ligne ci-dessous
+// variables utilisées dans les fichiers de langue, d'où les lignes ci-dessous
+$dbDb = (isset($dbDb))? $dbDb : '';
 $pass_leng = "";
 if (isset($fichier_mysql_inc_est_present))
 	$pass_leng = grr_sql_query1("select VALUE from ".TABLE_PREFIX."_setting where NAME = 'pass_leng'");
