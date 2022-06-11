@@ -2,7 +2,7 @@
 /**
  * include/functions.inc.php
  * fichier Bibliothèque de fonctions de GRR
- * Dernière modification : $Date: 2022-06-10 11:01$
+ * Dernière modification : $Date: 2022-06-11 18:18$
  * @author    JeromeB & Laurent Delineau & Marc-Henri PAMISEUX & Yan Naessens
  * @copyright Copyright 2003-2022 Team DEVOME - JeromeB
  * @link      http://www.gnu.org/licenses/licenses.html
@@ -1869,7 +1869,7 @@ function get_default_room(){
  */
 function day_name($daynumber)
 {
-	return utf8_encode(strftime("%A", mktime(0, 0, 0, 1, 2 + $daynumber, 2000)));
+	return utf8_strftime("%A", mktime(0, 0, 0, 1, 2 + $daynumber, 2000));
 }
 
 function affiche_heure_creneau($t,$resolution)
