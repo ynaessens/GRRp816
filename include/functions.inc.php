@@ -2,7 +2,7 @@
 /**
  * include/functions.inc.php
  * fichier Bibliothèque de fonctions de GRR
- * Dernière modification : $Date: 2022-06-11 18:18$
+ * Dernière modification : $Date: 2022-06-16 16:22$
  * @author    JeromeB & Laurent Delineau & Marc-Henri PAMISEUX & Yan Naessens
  * @copyright Copyright 2003-2022 Team DEVOME - JeromeB
  * @link      http://www.gnu.org/licenses/licenses.html
@@ -1658,10 +1658,10 @@ function genDateSelectorForm($prefix, $day, $month, $year, $option)
 	}
 	$selector_data .=  "</select>";
 	$selector_data .=  "<select class='test' name=\"${prefix}year\" id=\"${prefix}year\">\n";
-	$min = strftime("%Y", Settings::get("begin_bookings"));
+	$min = date("Y", Settings::get("begin_bookings"));
 	if ($option == "more_years")
 		$min = date("Y") - $nb_year_calendar;
-	$max = strftime("%Y", Settings::get("end_bookings"));
+	$max = date("Y", Settings::get("end_bookings"));
 	if ($option == "more_years")
 		$max = date("Y") + $nb_year_calendar;
 	for($i = $min; $i <= $max; $i++)
@@ -2826,7 +2826,7 @@ function send_mail($id_entry, $action, $dformat, $tab_id_moderes = array(), $old
 	$area_name    				= removeMailUnicode(htmlspecialchars($row[4]));
 	$room_id      				= $row[6];
 	$repeat_id    				= $row[7];
-	$date_avis    				= strftime("%Y/%m/%d", $row[10]);
+	$date_avis    				= utf8_strftime("%Y/%m/%d", $row[10]);
 	$delais_option_reservation 	= $row[13];
 	$option_reservation 		= $row[14];
 	$moderate 					= $row[15];
@@ -5304,8 +5304,8 @@ function jQuery_DatePicker($typeDate){
 				$year = $end_year;
 			}
         }
- 	$mindate = strftime("%d/%m/%Y",Settings::get('begin_bookings'));
-    $maxdate = strftime("%d/%m/%Y",Settings::get('end_bookings'));
+ 	$mindate = utf8_strftime("%d/%m/%Y",Settings::get('begin_bookings'));
+    $maxdate = utf8_strftime("%d/%m/%Y",Settings::get('end_bookings'));
     genDateSelector("".$typeDate."_", "$day", "$month", "$year","");
  	echo '<input type="hidden" disabled="disabled" id="mydate_' .$typeDate. '">'.PHP_EOL;
  	echo '<script type="text/javascript">'.PHP_EOL;
