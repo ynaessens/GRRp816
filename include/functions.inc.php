@@ -2,7 +2,7 @@
 /**
  * include/functions.inc.php
  * fichier Bibliothèque de fonctions de GRR
- * Dernière modification : $Date: 2022-06-16 16:22$
+ * Dernière modification : $Date: 2022-06-18 12:04$
  * @author    JeromeB & Laurent Delineau & Marc-Henri PAMISEUX & Yan Naessens
  * @copyright Copyright 2003-2022 Team DEVOME - JeromeB
  * @link      http://www.gnu.org/licenses/licenses.html
@@ -84,7 +84,7 @@ function cal($month, $year, $type)
 	$s = "";
 	$daysInMonth = getDaysInMonth($month, $year);
 	$date = mktime(12, 0, 0, $month, 1, $year);
-	$first = (strftime("%w",$date) + 7 - $weekstarts) % 7;
+	$first = (date("w",$date) + 7 - $weekstarts) % 7;
 	$monthName = ucfirst(utf8_strftime("%B", $date));
 
 	$s .= '<table class="table calendar2">'.PHP_EOL;
@@ -2866,7 +2866,7 @@ function send_mail($id_entry, $action, $dformat, $tab_id_moderes = array(), $old
 		{
 			$row2 = grr_sql_row($res, 0);
 			$rep_type     = $row2[0];
-			$rep_end_date = strftime($dformat,$row2[1]);
+			$rep_end_date = utf8_strftime($dformat,$row2[1]);
 			$rep_opt      = $row2[2];
 			$rep_num_weeks = $row2[3];
 		}
@@ -4259,7 +4259,7 @@ function describe_span($starts, $ends, $dformat)
 		$ampm = date("a",$starts);
 		$timeformat = "%I:%M$ampm";
 	}
-	$start_time = strftime($timeformat, $starts);
+	$start_time = utf8_strftime($timeformat, $starts);
 	$duration = $ends - $starts;
 	toTimeString($duration, $dur_units);
 	return array($start_date, $start_time ,$duration, $dur_units);
@@ -6240,9 +6240,11 @@ function generationToken()
 * pour réduire le risque XSS
 */
 function clean_input($data){
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
+    if ($data != NULL){
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+    }
     return $data;
 }
 
